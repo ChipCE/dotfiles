@@ -1,0 +1,2 @@
+# open in xfce4-dropdpown terminal
+xfce4-terminal --tab --drop-down --working-directory %f
