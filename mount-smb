@@ -1,4 +1,0 @@
-sudo mount //192.168.1.101/share -t cifs /home/chip/EarthBase/share/ -o "username=***,password=***,uid=***"
-sudo mount //192.168.1.101/private -t cifs /home/chip/EarthBase/private/ -o "username=***,password=***,uid=***"
-sudo mount //192.168.1.101/upload -t cifs /home/chip/EarthBase/upload/ -o "username=***,password=***,uid=***"
-
