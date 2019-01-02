@@ -1,5 +1,8 @@
 #!/bin/bash
 smbHost="192.168.1.101"
+smbUsername="***"
+smbPasswd="***"
+smbUID="***"
 echo "auto smb mount script"
 echo -n  "Waiting for $smbHost"
 for i in {1..12}
@@ -8,9 +11,9 @@ do
     then
         echo ""
         echo "Connected!"
-        sudo mount //192.168.1.101/share -t cifs /home/chip/EarthBase/share/ -o "username=***,password=***,uid=***"
-        sudo mount //192.168.1.101/private -t cifs /home/chip/EarthBase/private/ -o "username=***,password=***,uid=***"
-        sudo mount //192.168.1.101/upload -t cifs /home/chip/EarthBase/upload/ -o "username=***,password=***,uid=***"
+        sudo mount //192.168.1.101/hdd1 -t cifs /home/chip/EarthBase/HDD1/ -o "username=$smbUsername,password=$smbPasswd,uid=$smbUID"
+        sudo mount //192.168.1.101/hdd2 -t cifs /home/chip/EarthBase/HDD2/ -o "username=$smbUsername,password=$smbPasswd,uid=$smbUID"
+        sudo mount //192.168.1.101/hdd3 -t cifs /home/chip/EarthBase/HDD3/ -o "username=$smbUsername,password=$smbPasswd,uid=$smbUID"
         echo "Done!"
         exit 0
     else
