@@ -17,10 +17,8 @@
 ;==========================================================
 
 [colors]
-;background = ${xrdb:color0:#222}
 background = #222
 background-alt = #444
-;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
@@ -28,7 +26,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/bar1]
-monitor = ${env:MONITOR:HDMI2}
+;monitor = ${env:MONITOR:HDMI2}
 width = 100%
 height = 24
 ;offset-x = 1%
@@ -61,9 +59,10 @@ font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 ;modules-left = bspwm i3
-modules-left = 
+modules-left = i3
 modules-center = 
-modules-right = pulseaudio memory cpu wlan eth battery temperature date powermenu
+;modules-right = xbacklight alsa pulseaudio memory cpu wlan eth battery temperature date powermenu
+modules-right = xbacklight alsa memory cpu wlan eth battery temperature date powermenu
 
 ;tray-position = right
 ;tray-padding = 2
@@ -157,6 +156,7 @@ label-focused-padding = ${module/bspwm.label-focused-padding}
 ; unfocused = Inactive workspace on any monitor
 label-unfocused = %index%
 label-unfocused-padding = ${module/bspwm.label-occupied-padding}
+label-unfocused-underline = ${colors.foreground-alt}
 
 ; visible = Active workspace on unfocused monitor
 label-visible = %index%
@@ -168,6 +168,7 @@ label-visible-padding = ${self.label-focused-padding}
 label-urgent = %index%
 label-urgent-background = ${module/bspwm.label-urgent-background}
 label-urgent-padding = ${module/bspwm.label-urgent-padding}
+label-urgent-underline = ${colors.foreground-alt}
 
 ; Separator in between workspaces
 ; label-separator = |
@@ -189,19 +190,12 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 [module/xbacklight]
 type = internal/xbacklight
 
-format = <label> <bar>
-label = 
+format = <label>
+label = %percentage%%
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
 
-bar-width = 10
-bar-indicator = |
-bar-indicator-foreground = #fff
-bar-indicator-font = 2
-bar-fill = -
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = -
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
 
 [module/backlight-acpi]
 inherit = module/xbacklight
@@ -227,69 +221,57 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp3s0
+interface = wls3
 interval = 3.0
-
 format-connected = <label-connected>
 format-connected-underline = #9f78e1
-label-connected =  %essid%
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground-alt}
+label-connected = %essid%
+label-connected-maxlen = 12
 
-;format-disconnected =
 format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
-label-disconnected =  %ifname%
+label-disconnected = %ifname%
 label-disconnected-foreground = ${colors.foreground-alt}
-
-ramp-signal-0 = s1
-ramp-signal-1 = s2
-ramp-signal-2 = s3
-ramp-signal-3 = s4
-ramp-signal-4 = s5
-ramp-signal-foreground = ${colors.foreground-alt}
+format-disconnected-prefix = " " 
+format-disconnected-prefix-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
 interface = enp0s25
 interval = 3.0
-
 format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
-
-;format-disconnected =
 format-disconnected = <label-disconnected>
 format-disconnected-underline = ${self.format-connected-underline}
-label-disconnected =  %ifname%
+label-disconnected = %ifname%
 label-disconnected-foreground = ${colors.foreground-alt}
+format-disconnected-prefix = " "
+format-disconnected-prefix-foreground = ${colors.foreground-alt}
 
 [module/date]
 type = internal/date
 interval = 5
-
 date =
 date-alt = " %Y-%m-%d"
-
 time = %H:%M
 time-alt = %H:%M:%S
-
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
-
 label = %date% %time%
 
 [module/pulseaudio]
 type = internal/pulseaudio
-;format-volume = <label-volume> <bar-volume>
 format-volume = <label-volume>
 label-volume = %percentage%%
 label-volume-foreground = ${root.foreground}
-;label-volume-underline = #55aa55
 format-volume-underline = #55aa55
 format-volume-prefix = " "
 format-volume-prefix-foreground = ${colors.foreground-alt}
-
 label-muted = muted
 label-muted-foreground = #666
 format-muted-underline = #afafaf
@@ -297,33 +279,22 @@ format-muted-prefix = " "
 format-muted-prefix-foreground = ${colors.foreground-alt}
 
 
-;[module/alsa]
-;type = internal/alsa
+[module/alsa]
+type = internal/alsa
 
-;format-volume = <label-volume> <bar-volume>
-;label-volume = VOL
-;label-volume-foreground = ${root.foreground}
+format-volume = <label-volume>
+label-volume = %percentage%%
+label-volume-foreground = ${root.foreground}
+format-volume-underline = #55aa55
+format-volume-prefix = " "
+format-volume-prefix-foreground = ${colors.foreground-alt}
+label-muted = muted
+label-muted-foreground = #666
+format-muted-underline = #afafaf
+format-muted-prefix = " "
+format-muted-prefix-foreground = ${colors.foreground-alt}
 
-;format-muted-prefix = "muted "
-;format-muted-foreground = ${colors.foreground-alt}
-;label-muted = sound muted
 
-;bar-volume-width = 10
-;bar-volume-foreground-0 = #55aa55
-;bar-volume-foreground-1 = #55aa55
-;bar-volume-foreground-2 = #55aa55
-;bar-volume-foreground-3 = #55aa55
-;bar-volume-foreground-4 = #55aa55
-;bar-volume-foreground-5 = #f5a70a
-;bar-volume-foreground-6 = #ff5555
-;bar-volume-gradient = false
-;bar-volume-indicator = |
-;bar-volume-indicator-font = 2
-;bar-volume-fill = -
-;bar-volume-fill-font = 2
-;bar-volume-empty = -
-;bar-volume-empty-font = 2
-;bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/battery]
 type = internal/battery
@@ -390,26 +361,13 @@ label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
 
 menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
+menu-0-0-exec = i3exit reboot,
 menu-0-1 = power off
-menu-0-1-exec = menu-open-2
+menu-0-1-exec = i3exit shutdown
 menu-0-2 = logout
-menu-0-2-exec = menu-open-3
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
-
-menu-3-0 = logout
-menu-3-0-exec = uname -a
-menu-3-1 = cancel
-menu-3-1-exec = menu-open-0
+menu-0-2-exec = i3exit logout
+menu-0-3 = lock
+menu-0-3-exec = i3exit lock
 
 [settings]
 screenchange-reload = true
