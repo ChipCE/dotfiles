@@ -1,0 +1,3 @@
+sudo usermod -aG dialout $USER
+sudo usermod -aG uucp $USER
+sudo usermod -aG lock $USER
