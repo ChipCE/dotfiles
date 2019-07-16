@@ -1,0 +1,56 @@
+code(n)                                                                                 [incr Tcl]                                                                                code(n)
+
+_________________________________________________________________________________________________________________________________________________________________________________________
+
+NNAAMMEE
+       itcl::code - capture the namespace context for a code fragment
+
+SSYYNNOOPPSSIISS
+       iittccll::::ccooddee ?--nnaammeessppaaccee _n_a_m_e? _c_o_m_m_a_n_d ?_a_r_g _a_r_g _._._.?
+_________________________________________________________________________________________________________________________________________________________________________________________
+
+DDEESSCCRRIIPPTTIIOONN
+       Creates  a scoped value for the specified _c_o_m_m_a_n_d and its associated _a_r_g arguments.  A scoped value is a list with three elements:  the "@scope" keyword, a namespace context, and
+       a value string.  For example, the command
+              namespace foo {
+                  code puts "Hello World!"
+              }
+       produces the scoped value:
+              @scope ::foo {puts {Hello World!}}
+       Note that the ccooddee command captures the current namespace context.  If the --nnaammeessppaaccee flag is specified, then the current context is ignored, and the _n_a_m_e string is used  as  the
+       namespace context.
+
+       Extensions  like  Tk execute ordinary code fragments in the global namespace.  A scoped value captures a code fragment together with its namespace context in a way that allows it
+       to be executed properly later.  It is needed, for example, to wrap up code fragments when a Tk widget is used within a namespace:
+              namespace foo {
+                  private proc report {mesg} {
+                      puts "click: $mesg"
+                  }
+
+                  button .b1 -text "Push Me"         -command [code report "Hello World!"]
+                  pack .b1
+              }
+       The code fragment associated with button .b1 only makes sense in the context of namespace "foo".  Furthermore, the "report" procedure is private, and can only be accessed  within
+       that namespace.  The ccooddee command wraps up the code fragment in a way that allows it to be executed properly when the button is pressed.
+
+       Also,  note that the ccooddee command preserves the integrity of arguments on the command line.  This makes it a natural replacement for the lliisstt command, which is often used to for‐
+       mat Tcl code fragments.  In other words, instead of using the lliisstt command like this:
+              after 1000 [list puts "Hello $name!"]
+       use the ccooddee command like this:
+              after 1000 [code puts "Hello $name!"]
+       This not only formats the command correctly, but also captures its namespace context.
+
+       Scoped commands can be invoked like ordinary code fragments, with or without the eevvaall command.  For example, the following statements work properly:
+              set cmd {@scope ::foo .b1}
+              $cmd configure -background red
+
+              set opts {-bg blue -fg white}
+              eval $cmd configure $opts
+       Note that scoped commands by-pass the usual protection mechanisms; the command:
+              @scope ::foo {report {Hello World!}}
+       can be used to access the "foo::report" proc from any namespace context, even though it is private.
+
+KKEEYYWWOORRDDSS
+       scope, callback, namespace, public, protected, private
+
+itcl                                                                                       3.0                                                                                    code(n)
