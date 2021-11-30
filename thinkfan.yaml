@@ -1,0 +1,101 @@
+#/etc/thinkfan.yaml
+
+sensors:
+  # hwmon: Full path to a temperature file (single sensor).
+  # =======================================================
+  # Disadvantage is that the index in "hwmon0" depends on the load order of
+  # the driver modules, which may change across bootups on some systems.
+  - hwmon: /sys/devices/virtual/thermal/thermal_zone0/temp
+
+
+  # tpacpi: Legacy interface to the thinkpad_acpi driver
+  # ====================================================
+  # Particularly on older Thinkpad laptops, this interface may give access to
+  # 8-16 temperature sensors, but it may be hard to tell where/what exactly
+  # they measure.
+  # Some documentation for older models may be found at the thinkpad wiki:
+  # https://www.thinkwiki.org/wiki/Thermal_Sensors
+  #
+  # Note that the hwmon interface is to be preferred nowadays.
+  # - tpacpi: /proc/acpi/ibm/thermal
+    # Some of the temperature entries in /proc/acpi/ibm/thermal may be
+    # irrelevant or unused, so individual ones can be selected:
+    # indices: [1, 2, 3, 4]
+
+
+
+##############################################################################
+
+
+##############################################################################
+# Fan Drivers
+# ===========
+#
+# Currently, thinkfan supports only one fan, but support for multiple fans is
+# in development and will be released soon. For the time being, the examples
+# given below are mutually exclusive.
+#
+fans:
+
+  # tpacpi: Thinkpad-specific fan interface
+  # =======================================
+  # Currently, this is the only way to use disengaged and automatic mode on
+  # thinkpads.
+  - tpacpi: /proc/acpi/ibm/fan
+
+##############################################################################
+
+
+##############################################################################
+# Fan Speeds (simple mode)
+# ========================
+# 
+# In simple mode, each entry is a [FANSPEED, LOWER_LIMIT, UPPER_LIMIT] tuple.
+# This is a quick way to configure a small system like a laptop, where the
+# temperature ratings for all monitored devices are similar. Only the highest
+# temperature found across all sensors will be compared against these limits.
+# All other temperatures are ignored.
+#
+# Correction values on individual sensors (see above) may be used to equalize
+# small discrepancies in temperature ratings.
+#
+# The FANSPEED values in this example are valid for the thinkpad_acpi fan
+# driver only (see above)
+#
+levels:
+  - speed: 0
+    upper_limit: [20]
+    
+  - speed: 1
+    lower_limit: [20]
+    upper_limit: [30]
+    
+  - speed: 2
+    lower_limit: [30]
+    upper_limit: [35]
+    
+  - speed: 3
+    lower_limit: [35]
+    upper_limit: [40]
+  
+  - speed: 4
+    lower_limit: [40]
+    upper_limit: [45]
+    
+    
+  - speed: 5
+    lower_limit: [45]
+    upper_limit: [50]
+
+  - speed: 6
+    lower_limit: [50]
+    upper_limit: [55]
+
+  - speed: 7
+    lower_limit: [55]
+
+#echo "options thinkpad_acpi fan_control=1 experimental=1" | sudo tee /etc/#modprobe.d/thinkfan.conf
+#sudo modprobe -rv thinkpad_acpi
+#sudo modprobe -v thinkpad_acpi
+
+#thinkpad_acpi.fan_control=1
