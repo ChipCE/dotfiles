@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Prusa Slicer
+Exec=reg-launcher -d /home/chip/Data/Application -e AppImage -n PrusaSlicer
+Comment=Prusa Slicer AppImage
+Icon=/home/chip/Data/Application/icons/prusaslicer.png
+Terminal=false
+Type=Application
+Categories=Graphics;
