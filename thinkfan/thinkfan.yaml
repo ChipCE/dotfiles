@@ -25,9 +25,7 @@ sensors:
 
 
 ##############################################################################
-
-
-##############################################################################
+thinkpad_acpi.fan_control=1#############################################
 # Fan Drivers
 # ===========
 #
@@ -44,7 +42,7 @@ fans:
   - tpacpi: /proc/acpi/ibm/fan
 
 ##############################################################################
-
+thinkpad_acpi.fan_control=1
 
 ##############################################################################
 # Fan Speeds (simple mode)
@@ -93,9 +91,3 @@ levels:
 
   - speed: 7
     lower_limit: [55]
-
-#echo "options thinkpad_acpi fan_control=1 experimental=1" | sudo tee /etc/#modprobe.d/thinkfan.conf
-#sudo modprobe -rv thinkpad_acpi
-#sudo modprobe -v thinkpad_acpi
-
-#thinkpad_acpi.fan_control=1
