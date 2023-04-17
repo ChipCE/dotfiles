@@ -1,0 +1,1 @@
+/usr/bin/x11vnc -auth guess -forever -loop -noxdamage -repeat -rfbauth /home/chip/.vnc/passwd -rfbport 5900 -shared
