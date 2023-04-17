@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Etcher
+Exec=reg-launcher -d /home/chip/Data/Application -e AppImage -n Etcher
+Comment=Etcher AppImage
+Icon=/home/chip/Data/Application/icons/etcher.png
+Terminal=false
+Type=Application
+Categories=Utility;

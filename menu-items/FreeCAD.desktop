@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=FreeCAD
+Exec=reg-launcher -d /home/chip/Data/Application -e AppImage -n FreeCAD
+Comment=FreeCAD AppImage
+Icon=/home/chip/Data/Application/icons/FreeCAD.png
+Terminal=false
+Type=Application
+Categories=Graphics;

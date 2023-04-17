@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Cura
+Exec=reg-launcher -d /home/chip/Data/Application -e AppImage -n Cura
+Comment=Cura AppImage
+Icon=/home/chip/Data/Application/icons/cura.png
+Terminal=false
+Type=Application
+Categories=Graphics;
