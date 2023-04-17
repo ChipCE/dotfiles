@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=PrusaSlicer URL Protocol - alpha
-Exec="/home/chip/Data/Application/PrusaSlicer-2.6.0-alpha3+linux-x64-GTK3-202302031527.AppImage" --single-instance %u
-Icon=PrusaSlicer-alpha
-Terminal=false
-Type=Application
-MimeType=x-scheme-handler/prusaslicer;
-StartupNotify=false
